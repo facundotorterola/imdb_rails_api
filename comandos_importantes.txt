@@ -1,0 +1,10 @@
+
+Ejecuta el servidor
+rails server
+
+Ejecuta una consola con lo que tenemos en la app
+rails c
+
+
+Creamos una instancia del modelo con datos , hay que configurar el Factory bot en test/facotories/model
+FactoryBot.create(:model)
