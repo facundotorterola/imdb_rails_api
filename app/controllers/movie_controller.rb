@@ -15,7 +15,13 @@ class MovieController < ApplicationController
     end
 
     def index
-        movies=Movie.all
+        if params[:search] &&  params[:search].present?
+            movies=Movie.all
+            movies = MovieSearchService.search(movies,params[:search])    
+        else
+            movies =Movie.paginate(page:params[:page],per_page: 10)
+        end
+
         render json:movies.includes(:reviews), status: :ok
     end
 
@@ -35,14 +41,10 @@ class MovieController < ApplicationController
         movie.update!(update_params)
         render json:movie, status: :ok
     end
-    
 
+    
     def create_params
         params.require(:movie).permit(:title,:director,:year,:description)
-    end
-
-    def create_review_params
-        params.permit(:title,:user_id,:movie_id,:description,:rate)
     end
 
     def update_params
@@ -50,12 +52,7 @@ class MovieController < ApplicationController
     end
 
 
-    def create_review
-        params[:user_id]=Current.user.id
-        params[:movie_id]= params[:id]
-        review = Review.create!(create_review_params)
-        render json: review, status: :created
-    end
+ 
     
     
     

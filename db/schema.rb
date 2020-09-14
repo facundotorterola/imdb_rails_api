@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(version: 2020_09_04_214449) do
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "auth_token"
     t.string "password"
   end
 

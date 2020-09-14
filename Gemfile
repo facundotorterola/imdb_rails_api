@@ -32,7 +32,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'faker', '~> 1.9'
+  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
   gem 'factory_bot_rails', '~> 4.0'
 end
 
@@ -50,4 +50,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'active_model_serializers', '~> 0.10.8'
 gem 'jwt'
 gem 'bcrypt', '~> 3.1.7'
+gem 'will_paginate'
+
 
