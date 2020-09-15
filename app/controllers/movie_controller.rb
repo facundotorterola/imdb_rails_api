@@ -3,7 +3,7 @@ require 'byebug'
 class MovieController < ApplicationController 
 
     include Secure
-    before_action :authenticate_user!,only: [:create_review]
+    before_action :authenticate_admin!,only: [:create,:update]
 
     # Manejo de Excepciones
     rescue_from Exception do |e|
@@ -17,12 +17,18 @@ class MovieController < ApplicationController
     def index
         if params[:search] &&  params[:search].present?
             movies=Movie.all
-            movies = MovieSearchService.search(movies,params[:search])    
+            movies = MovieSearchService.search(movies,params[:search])
+            last_page =(movies.length > 10) ? (movies.length/10.0).ceil : nil
         else
             movies =Movie.paginate(page:params[:page],per_page: 10)
+            movies_length= Movie.count()
+            last_page = (movies_length) > 10 ? (movies_length/10.0).ceil : nil
         end
-
-        render json:movies.includes(:reviews), status: :ok
+        response={
+            movies: movies,
+            last_page:last_page
+        }
+        success_response("",response,:ok)
     end
 
     def show
