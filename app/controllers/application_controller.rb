@@ -1,6 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::API
-    def success_response(err,body,status=200)
-        render json:{err: err , body: body}, status: status
-    end
-    
+  include Api::V1::ExceptionHandler
 end

@@ -1,13 +1,11 @@
-class MovieSerializer < ActiveModel::Serializer
-    attributes :id,:title,:director,:year,:description,:rating
-    has_many :reviews
+# frozen_string_literal: true
 
-    def rating
-        rating = object.reviews.average(:rate)
-        if rating
-            rating
-        else
-            0
-        end 
-    end
+class MovieSerializer < ActiveModel::Serializer
+  attributes :id, :title, :director, :year, :description, :rating
+  has_many :reviews
+
+  def rating
+    rating = object.reviews.average(:rate)
+    rating || 0
+  end
 end
